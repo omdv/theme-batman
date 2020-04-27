@@ -12,6 +12,23 @@ function fish_prompt
 
   echo -n (echo "$pwd" | sed -e $expr)(off)
 
+  printf (snd)" ["(begin
+    set -l shell_version (echo $PYENV_VERSION)
+      if test -n $shell_version
+        echo (fst)$shell_version
+      else
+        #if [ -d "$HOME/.pyenv/version" ]
+        #  set -l global_version (cat $HOME/.pyenv/version)
+        #  echo (fst)$global_version
+        if set -q VIRTUAL_ENV
+          set -l global_version (basename "$VIRTUAL_ENV")
+          echo (fst)$global_version
+        else
+          echo (fst)system
+        end
+      end
+  end)(snd)"] "(off)
+
   for color in $colors
     echo -n (set_color $color)">"
   end
